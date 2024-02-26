@@ -1,0 +1,31 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "\"This is Chat App Project, User Chat with anyother person also create group and chat with all user in one group\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaldaniyaParth/Chat-App.git"
+  },
+  "author": "\"Parth Baldaniya\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaldaniyaParth/Chat-App/issues"
+  },
+  "homepage": "https://github.com/BaldaniyaParth/Chat-App#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.2.0",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.4"
+  }
+}
