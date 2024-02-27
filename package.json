@@ -4,7 +4,8 @@
   "description": "\"This is Chat App Project, User Chat with anyother person also create group and chat with all user in one group\"",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",

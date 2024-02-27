@@ -100,6 +100,12 @@ form.sign-in-form {
 .input-field input::placeholder {
   color: #aaa;
   font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.upload_image{
+   margin-top: 15px;
+   font-weight: 300 !important;
 }
 
 .btn {
@@ -120,6 +126,7 @@ form.sign-in-form {
 .btn:hover {
   background-color: #4d84e2;
 }
+
 .panels-container {
   position: absolute;
   height: 100%;
