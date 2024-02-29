@@ -41,7 +41,7 @@
     <section class="dashboard">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i> 
-            <img src="/img/log.svg" alt="">
+            <img src=" <%= user.image %>" alt="User Profile">
         </div>
 
         <div class="dash-content">
@@ -51,15 +51,27 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <ul class="list-group">
                             <% 
                                 if(users.length > 0){
                                     for(let i = 0; i < users.length; i++){
                                         %>
-                                            <li class="list-group-item list-group-item-dark cursor-pointer user-list">
+                                            <li class="list-group-item list-group-item-dark cursor-pointer user-list" data-id="<%=users[i]["_id"]%>">
                                                 <img src= " <%= users[i]["image"] %>" alt="user image" width="40px" height="40px">
                                                 <%= users[i]["name"] %>
+
+                                                <% 
+                                                    if(users[i]["is_online"] == "1"){
+                                                        %>
+                                                            <sup class="online-status" id="<%=users[i]["_id"]%>-status">Online</sup>
+                                                        <%
+                                                    }else{
+                                                        %>
+                                                            <sup class="offline-status" id="<%=users[i]["_id"]%>-status">Offline</sup>
+                                                        <%
+                                                    }
+                                                %>
                                             </li>
                                         <%
                                     }
@@ -68,7 +80,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                             <% 
                                 if(users.length > 0){
                                     for(let i = 0; i < users.length; i++){
@@ -84,6 +96,7 @@
                         <div class="chat-section">
                             <div class="chat-container">
                             </div>
+
                             <form action="" id="chat-form">
                                 <input type="text" name="message" placeholder="enter message" id="message" class="border" required>
                                 <input type="submit" value="Send Message" class="btn btn-primary">

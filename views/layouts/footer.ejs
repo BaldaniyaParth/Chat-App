@@ -1,20 +1,74 @@
 <p class="owner">Made by Parth Baldaniya</p>
 <script>
 
-        const sender_id = "<%= user._id %>";
-        const socket = io("/user-chat", {
+        var sender_id = "<%= user._id %>";
+        var receiver_id;
+        var socket = io("/user-chat", {
             auth : {
                 token : sender_id,
             }
         })
 
+        $(document).ready(function() {
+            $(".user-list").click(function() { 
+                var userId = $(this).attr("data-id");
+                receiver_id = userId;
 
-        $(document).ready(function(){
-            $(".user-list").click(function(){
                 $(".start-head").show();
                 $(".chat-section").show();
+            });
+        });
+
+        
+
+        socket.on("getOnlineStatus", (data) => {
+            $("#"+data.user_id+"-status").text("Online");
+            $("#"+data.user_id+"-status").removeClass("offline-status");
+            $("#"+data.user_id+"-status").addClass("online-status");
+        })
+
+        socket.on("getOfflineStatus", (data) => {
+            $("#"+data.user_id+"-status").text("Offline");
+            $("#"+data.user_id+"-status").removeClass("online-status");
+            $("#"+data.user_id+"-status").addClass("offline-status");
+        })
+
+        $("#chat-form").submit( (event) => {
+            event.preventDefault();
+            var message = $("#message").val();
+            $.ajax({
+                url : "/save-chat",
+                type : "POST",
+                data : { sender_id : sender_id, receiver_id : receiver_id, message : message},
+                success : ( (res) => {
+                    if(res.success){
+                        $("#message").val(" ");
+                        let chat = res.data.message;
+                        let html = ` 
+                            <div class="current-user-chat">
+                                <h5>`+ chat +`</h5>
+                            </div>
+                        `
+                        $(".chat-container").append(html);
+                        socket.emit("newChat", res.data);
+                    }else{
+                        alert("Something Worng...")
+                    }
+                })
             })
         })
+
+        socket.on("loadNewChat", (data) => {
+            if(sender_id == data.receiver_id && receiver_id == data.sender_id){
+                let html = ` 
+                    <div class="distance-user-chat">
+                        <h5>`+ data.message +`</h5>
+                    </div>
+                `
+                $(".chat-container").append(html);
+            }
+        })
+
 </script>
 
 

@@ -437,3 +437,23 @@ nav.close ~ .dashboard .top {
 .chat-section {
     display: none;
 }
+
+.online-status {
+    color: green;
+}
+
+.offline-status {
+    color: red;
+}
+
+.current-user-chat {
+    text-align: right;
+    margin: 10px;
+    color: black;
+}
+
+.distance-user-chat {
+    text-align: left;
+    margin: 10px;
+    color: black;
+}

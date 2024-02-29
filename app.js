@@ -3,6 +3,7 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
+const chatRoute = require("./routes/chatRoute");
 const session = require("express-session");
 const User = require("./models/userModel");
 require("./db/connect");
@@ -24,6 +25,7 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 app.use("/", userRoute);
+app.use("/", chatRoute);
 
 const io = require("socket.io")(server);
 const userChat = io.of("/user-chat");
@@ -37,6 +39,8 @@ userChat.on("connection", async (socket) => {
         }
     })
 
+    socket.broadcast.emit("getOnlineStatus", { user_id : userId});
+
     socket.on("disconnect", async () => {
         console.log("user disconnect");
 
@@ -46,6 +50,12 @@ userChat.on("connection", async (socket) => {
                 is_online : "0",
             }
         })
+
+        socket.broadcast.emit("getOfflineStatus", { user_id : userId});
+    })
+
+    socket.on("newChat", (data) => {
+        socket.broadcast.emit("loadNewChat", data);
     })
 })
 
