@@ -1,5 +1,14 @@
 <p class="owner">Made by Parth Baldaniya</p>
 <script>
+
+        const sender_id = "<%= user._id %>";
+        const socket = io("/user-chat", {
+            auth : {
+                token : sender_id,
+            }
+        })
+
+
         $(document).ready(function(){
             $(".user-list").click(function(){
                 $(".start-head").show();
