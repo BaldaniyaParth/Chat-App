@@ -79,7 +79,8 @@ exports.logout = async (req, res) => {
 
 exports.dashboardLoad = async (req, res) => {
     try {
-        res.render("dashboard.ejs", {user : req.session.user});
+        const users = await User.find({ _id : { $nin : [req.session.user._id]}});
+        res.render("dashboard.ejs", {user : req.session.user, users : users});
 
     }catch (err) {
         return res.status(500).json({

@@ -5,7 +5,7 @@
 
     <nav>
         <div class="logo-name">
-            <span class="logo_name">Chat Application</span>
+            <span class="logo_name">Chat System</span>
         </div>
 
         <div class="menu-items">
@@ -17,42 +17,84 @@
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="/logout">
-                    <i class="uil uil-signout"></i>
-                    <span class="link-name">Logout</span>
-                </a></li>
+                <li>
+                    <a href="/logout">
+                        <i class="uil uil-signout"></i>
+                        <span class="link-name">Logout</span>
+                    </a>
+                </li>
 
                 <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
-                    <span class="link-name">Dark Mode</span>
-                </a>
+                        <span class="link-name">Dark Mode</span>
+                    </a>
 
-                <div class="mode-toggle">
-                  <span class="switch"></span>
-                </div>
-            </li>
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
 
     <section class="dashboard">
         <div class="top">
-            <i class="uil uil-bars sidebar-toggle"></i>
-            
+            <i class="uil uil-bars sidebar-toggle"></i> 
             <img src="/img/log.svg" alt="">
         </div>
 
         <div class="dash-content">
             <div class="overview">
                 <div class="title">
-                    <i class="uil uil-tachometer-fast-alt"></i>
                     <span class="text">Hii, <%= user.name %> </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="list-group">
+                            <% 
+                                if(users.length > 0){
+                                    for(let i = 0; i < users.length; i++){
+                                        %>
+                                            <li class="list-group-item list-group-item-dark cursor-pointer user-list">
+                                                <img src= " <%= users[i]["image"] %>" alt="user image" width="40px" height="40px">
+                                                <%= users[i]["name"] %>
+                                            </li>
+                                        <%
+                                    }
+                                }
+                            %>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-9">
+                            <% 
+                                if(users.length > 0){
+                                    for(let i = 0; i < users.length; i++){
+                                        %>
+                                            <h3 class="start-head">
+                                                <img src= " <%= users[i]["image"] %>" alt="user image" width="40px" height="40px">
+                                                <%= users[i]["name"] %>
+                                            </h3>
+                                        <%
+                                    }
+                                }
+                            %>
+                        <div class="chat-section">
+                            <div class="chat-container">
+                            </div>
+                            <form action="" id="chat-form">
+                                <input type="text" name="message" placeholder="enter message" id="message" class="border" required>
+                                <input type="submit" value="Send Message" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
+        
 
     
 
