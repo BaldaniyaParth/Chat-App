@@ -1,3 +1,59 @@
-<h1> <%= user.name  %></h1>
 
-<a href="/logout">logout</a>
+<%- include("layouts/header.ejs") %>
+
+
+
+    <nav>
+        <div class="logo-name">
+            <span class="logo_name">Chat Application</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="/logout">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            
+            <img src="/img/log.svg" alt="">
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Hii, <%= user.name %> </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+<%- include("layouts/footer.ejs") %>
