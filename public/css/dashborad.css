@@ -457,3 +457,7 @@ nav.close ~ .dashboard .top {
     margin: 10px;
     color: black;
 }
+
+.fa-trash {
+    color: red;
+}

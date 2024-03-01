@@ -6,6 +6,7 @@ const userRoute = require("./routes/userRoute");
 const chatRoute = require("./routes/chatRoute");
 const session = require("express-session");
 const User = require("./models/userModel");
+const Chat = require("./models/chatModel");
 require("./db/connect");
 require("dotenv").config();
 
@@ -27,7 +28,7 @@ app.use(express.static("public"));
 app.use("/", userRoute);
 app.use("/", chatRoute);
 
-const io = require("socket.io")(server);
+const io = require("socket.io")(server) ;
 const userChat = io.of("/user-chat");
 userChat.on("connection", async (socket) => {
     console.log("user connected");
@@ -56,6 +57,19 @@ userChat.on("connection", async (socket) => {
 
     socket.on("newChat", (data) => {
         socket.broadcast.emit("loadNewChat", data);
+    })
+
+    socket.on("existsChat", async (data) => {
+        const chats = await Chat.find({ $or : [
+            { sender_id : data.sender_id, receiver_id : data.receiver_id},
+            { sender_id : data.receiver_id, receiver_id : data.sender_id}
+        ]});
+        
+        socket.emit("loadChats", { chats : chats});
+    }) 
+
+    socket.on("chatDeleted", (id) => {
+        socket.broadcast.emit("chatMessageDeleted", id);
     })
 })
 
