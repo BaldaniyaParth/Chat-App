@@ -50,6 +50,7 @@ exports.login = async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if(passwordMatch){
                 req.session.user = userData;
+                res.cookie("user", JSON.stringify(userData));
                 res.redirect("/dashboard");
             }else{
                 res.redirect("/")
@@ -68,6 +69,7 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
     try {
         req.session.destroy();
+        res.clearCookie("user")
         res.redirect("/");
     }catch (err) {
         return res.status(500).json({

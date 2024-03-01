@@ -7,6 +7,7 @@ const chatRoute = require("./routes/chatRoute");
 const session = require("express-session");
 const User = require("./models/userModel");
 const Chat = require("./models/chatModel");
+const cookieParser = require("cookie-parser");
 require("./db/connect");
 require("dotenv").config();
 
@@ -19,6 +20,7 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
