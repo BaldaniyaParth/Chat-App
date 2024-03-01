@@ -41,3 +41,24 @@ exports.deleteChat = async (req,res) => {
         })
     }
 }
+
+exports.updateChat = async (req,res) => {
+    try {
+        
+        await Chat.findByIdAndUpdate( { _id : req.body.id },{
+            $set : {
+                message : req.body.message
+            }
+        });
+
+        res.status(200).send({
+            success : true,
+        })
+
+    }catch (err) {
+        return res.status(500).json({
+            status : 500,
+            message: "Something Worng..."
+        })
+    }
+}

@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Delete Modal -->
         <div class="modal fade" id="deleteChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -126,6 +126,30 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title flex-grow-1" id="exampleModalLongTitle">Edit Chat</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 35px; opacity: 0.5;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="update-chat-form">
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="edit-message-id" >
+                            <input type="text" name="message" id="update-message" placeholder="Enter Message" required >
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

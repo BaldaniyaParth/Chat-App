@@ -13,7 +13,11 @@ require("dotenv").config();
 const app = express();
 const server = http.createServer(app);
 
-app.use(session({ secret:process.env.SESSION_SECRET}));
+app.use(session({ 
+    secret:process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -70,6 +74,10 @@ userChat.on("connection", async (socket) => {
 
     socket.on("chatDeleted", (id) => {
         socket.broadcast.emit("chatMessageDeleted", id);
+    })
+
+    socket.on("chatUpdated", (data) => {
+        socket.broadcast.emit("chatMessageUpdated", data);
     })
 })
 

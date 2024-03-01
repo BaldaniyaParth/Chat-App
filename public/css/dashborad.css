@@ -461,3 +461,7 @@ nav.close ~ .dashboard .top {
 .fa-trash {
     color: red;
 }
+
+.fa-edit {
+    color: blue;
+}

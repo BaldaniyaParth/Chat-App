@@ -35,34 +35,36 @@
             $("#"+data.user_id+"-status").addClass("offline-status");
         })
 
-        $("#chat-form").submit( (event) => {
-            event.preventDefault();
-            var message = $("#message").val();
-            $.ajax({
-                url : "/save-chat",
-                type : "POST",
-                data : { sender_id : sender_id, receiver_id : receiver_id, message : message},
-                success : ( (res) => {
-                    if(res.success){
-                        $("#message").val(" ");
-                        let chat = res.data.message;
-                        let html = ` 
-                            <div id="`+res.data._id+`" class="current-user-chat">
-                                <h5>`+ chat +`
-                                    <i class="fa fa-trash" aria-hidden="true" data-id = `+res.data._id+` data-toggle="modal" data-target="#deleteChatModel" style="cursor : pointer"></i> 
-                                </h5>
-                            </div>
-                        `
-                        $(".chat-container").append(html);
-                        socket.emit("newChat", res.data);
+        $("#chat-form").submit((event) => {
+    event.preventDefault();
+    var message = $("#message").val();
+    $.ajax({
+        url: "/save-chat",
+        type: "POST",
+        data: { sender_id: sender_id, receiver_id: receiver_id, message: message },
+        success: ((res) => {
+            if (res.success) {
+                $("#message").val(" ");
+                let chat = res.data.message;
+                let html = `
+                    <div id="${res.data._id}" class="current-user-chat">
+                        <h5><span>${chat}</span>
+                            <i class="fa fa-trash" aria-hidden="true" data-id="${res.data._id}" data-toggle="modal" data-target="#deleteChatModel" style="cursor: pointer"></i> 
+                            <i class="fa fa-edit" aria-hidden="true" data-msg="${(res.data.message)}" data-id="${res.data._id}" data-toggle="modal" data-target="#editChatModel" style="cursor: pointer"></i> 
+                        </h5>
+                    </div>
+                `;
+                $(".chat-container").append(html);
+                socket.emit("newChat", res.data);
 
-                        scrollChat();
-                    }else{
-                        alert("Something Worng...")
-                    }
-                })
-            })
+                scrollChat();
+            } else {
+                alert("Something Wrong...")
+            }
         })
+    });
+});
+
 
         socket.on("loadNewChat", (data) => {
             if(sender_id == data.receiver_id && receiver_id == data.sender_id){
@@ -89,15 +91,18 @@
                 }
 
                 html += `
-                    <div class=" `+ addClass +` id = ` + chats[x]["_id"] + `">
-                        <h5> ` + chats[x]["message"]+ ``; 
-                            if(chats[x]["sender_id"] == sender_id){
-                                html += ` <i class="fa fa-trash" aria-hidden="true" data-id = ` + chats[x]["_id"] + ` data-toggle="modal" data-target="#deleteChatModel" style="cursor : pointer"></i> `;
-                            }              
+    <div class="${addClass}" id="${chats[x]["_id"]}">
+        <h5>
+            <span>${chats[x]["message"]}</span>`;
+            if (chats[x]["sender_id"] == sender_id) {
                 html += `
-                        </h5>   
-                    </div>
-                `
+                <i class="fa fa-trash" aria-hidden="true" data-id="${chats[x]["_id"]}" data-toggle="modal" data-target="#deleteChatModel" style="cursor: pointer"></i> 
+                <i class="fa fa-edit" aria-hidden="true" data-msg="${(chats[x]["message"])}" data-id="${chats[x]["_id"]}" data-toggle="modal" data-target="#editChatModel" style="cursor: pointer"></i>`;
+            }
+html += `
+        </h5>
+    </div>`;
+
             }
 
             $(".chat-container").append(html);
@@ -120,7 +125,7 @@
             event.preventDefault();
             var id = $("#delete-message-id").val();
 
-            $.ajax({
+            $.ajax({    
                 url : "/delete-chat",
                 type : "POST",
                 data : { id : id},
@@ -139,6 +144,38 @@
         socket.on("chatMessageDeleted", (id) => {
             $("#"+id).remove();
         })
+
+        $(document).on("click", ".fa-edit", function(){
+            $("#edit-message-id").val($(this).attr("data-id"));
+            $("#update-message").val($(this).attr("data-msg"))
+        })
+
+        $("#update-chat-form").submit( (event) => {
+            event.preventDefault();
+            var id = $("#edit-message-id").val();
+            var message = $("#update-message").val();
+
+            $.ajax({    
+                url : "/update-chat",
+                type : "POST",
+                data : { id : id, message : message},
+                success : ( (res) => {
+                    if(res.success == true){
+                        $("#editChatModel").modal("hide");
+                        $("#"+id).find("span").text(message);
+                        $("#"+id).find(".fa-edit").attr("data-msg", message);
+                        socket.emit("chatUpdated", { id : id, message : message});
+                    }else {
+                        alert("Something Worng...")
+                    }
+                })
+            })
+        })
+
+        socket.on("chatMessageUpdated", (data) => {
+            $("#"+data.id).find("span").text(data.message);
+        })
+
 
 </script>
 
