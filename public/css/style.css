@@ -247,6 +247,8 @@ form.sign-in-form {
   pointer-events: all;
 }
 
+/* Media Query */
+
 @media (max-width: 870px) {
   .container {
     min-height: 800px;
