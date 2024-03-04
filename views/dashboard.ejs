@@ -1,115 +1,113 @@
+<!-- This file contains the dashboard section of the application. It displays the user's dashboard with chat functionality. -->
 
 <%- include("layouts/header.ejs") %>
 
-    <section class="dashboard">
-        <div class="top">
-            <i class="uil uil-bars sidebar-toggle"></i> 
-            <img src=" <%= user.image %>" alt="User Profile">
-        </div>
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i> 
+        <img src=" <%= user.image %>" alt="User Profile">
+    </div>
 
-        <div class="dash-content">
-            <div class="overview">
-                <div class="title">
-                    <span class="text">Hii, <%= user.name %> </span>
-                </div>
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <span class="text">Welcome, <%= user.name %> </span>
+            </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <ul class="list-group">
-                            <% 
-                                if(users.length > 0){
-                                    for(let i = 0; i < users.length; i++){
-                                        %>
-                                            <li class="list-group-item list-group-item-dark cursor-pointer user-list" data-id="<%=users[i]["_id"]%>">
-                                                <img src= " <%= users[i]["image"] %>" alt="user image" width="40px" height="40px">
-                                                <%= users[i]["name"] %>
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <% 
+                            if(users.length > 0){
+                                for(let i = 0; i < users.length; i++){
+                                    %>
+                                        <li class="list-group-item list-group-item-dark cursor-pointer user-list" data-id="<%=users[i]["_id"]%>">
+                                            <img src= " <%= users[i]["image"] %>" alt="user image" width="40px" height="40px">
+                                            <%= users[i]["name"] %>
 
-                                                <% 
-                                                    if(users[i]["is_online"] == "1"){
-                                                        %>
-                                                            <sup class="online-status" id="<%=users[i]["_id"]%>-status">Online</sup>
-                                                        <%
-                                                    }else{
-                                                        %>
-                                                            <sup class="offline-status" id="<%=users[i]["_id"]%>-status">Offline</sup>
-                                                        <%
-                                                    }
-                                                %>
-                                            </li>
-                                        <%
-                                    }
+                                            <% 
+                                                if(users[i]["is_online"] == "1"){
+                                                    %>
+                                                        <sup class="online-status" id="<%=users[i]["_id"]%>-status">Online</sup>
+                                                    <%
+                                                }else{
+                                                    %>
+                                                        <sup class="offline-status" id="<%=users[i]["_id"]%>-status">Offline</sup>
+                                                    <%
+                                                }
+                                            %>
+                                        </li>
+                                    <%
                                 }
-                            %>
-                        </ul>
-                    </div>
+                            }
+                        %>
+                    </ul>
+                </div>
 
-                    <div class="col-md-8">
-                          
-                        <div class="chat-section">
-                            <div class="chat-container">
-                            </div>
-
-                            <form action="" id="chat-form">
-                                <input type="text" name="message" placeholder="enter message" id="message" class="border" required>
-                                <input type="submit" value="Send Message" class="btn btn-primary">
-                            </form>
+                <div class="col-md-8">
+                    
+                    <div class="chat-section">
+                        <div class="chat-container">
                         </div>
+
+                        <form action="" id="chat-form">
+                            <input type="text" name="message" placeholder="Enter message" id="message" class="border" required>
+                            <input type="submit" value="Send Message" class="btn btn-primary">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title flex-grow-1" id="exampleModalLongTitle">Delete Chat</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 35px; opacity: 0.5;">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form id="delete-chat-form">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="delete-message-id" >
-                            <p>Are you sure you want to delete below Message?</p>
-                            <p><b class="delete-message"></b></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                    </form>
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title flex-grow-1" id="exampleModalLongTitle">Delete Chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 35px; opacity: 0.5;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <form id="delete-chat-form">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="delete-message-id" >
+                        <p>Are you sure you want to delete the following message?</p>
+                        <p><b class="delete-message"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title flex-grow-1" id="exampleModalLongTitle">Edit Chat</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 35px; opacity: 0.5;">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form id="update-chat-form">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="edit-message-id" >
-                            <input type="text" name="message" id="update-message" placeholder="Enter Message" required >
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                    </form>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editChatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title flex-grow-1" id="exampleModalLongTitle">Edit Chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 35px; opacity: 0.5;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <form id="update-chat-form">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="edit-message-id" >
+                        <input type="text" name="message" id="update-message" placeholder="Enter Message" required >
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-        
-
-    
+    </div>
+</section>
 
 <%- include("layouts/footer.ejs") %>
