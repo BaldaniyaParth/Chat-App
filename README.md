@@ -40,12 +40,15 @@ npm install
 4. Configure environment variables.
 - Create a .env file in the root directory.
 - Add the necessary environment variables ((e.g., MongoDB connection string, session secret, Cloudinary credentials).)
-    - Example : - PORT = 8000
+    - Example :
+        ```bash
+                - PORT = 8000
                 - MONGODB_URL = "mongodb+srv://<Your Name>:<Your Password>@chat-app.xzstind.mongodb.net/Chat-App?retryWrites=true&w=majority&appName=Chat-App"
                 - SESSION_SECRET = "YourSessionSecret"
                 - cloud_name = "Your Cloud Name"
                 - api_key = "Your Cloudinary API Key"
                 - api_secret = "Your Cloudinary API Secret"
+        ```
 
 5. Start the server.
 ```bash
