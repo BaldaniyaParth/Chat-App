@@ -45,10 +45,22 @@ npm install
                 - PORT = 8000
                 - MONGODB_URL = "mongodb+srv://<Your Name>:<Your Password>@chat-app.xzstind.mongodb.net/Chat-App?retryWrites=true&w=majority&appName=Chat-App"
                 - SESSION_SECRET = "YourSessionSecret"
-                - cloud_name = "Your Cloud Name"
-                - api_key = "Your Cloudinary API Key"
-                - api_secret = "Your Cloudinary API Secret"
         ```
+- Create a helper folder under cloudinary.ejs file
+    - Example : 
+        ```bash
+                const cloudinary = require('cloudinary');
+
+                cloudinary.v2.config({
+                    cloud_name: 'Your cloud name',
+                    api_key: 'Your api key',
+                    api_secret: 'Your api secret',
+                    secure: true,
+                });
+
+                module.exports = cloudinary;
+        ```
+        
 
 5. Start the server.
 ```bash
