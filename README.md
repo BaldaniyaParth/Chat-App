@@ -25,21 +25,37 @@ This is a chat application built using Node.js, Express.js, MongoDB, Socket.IO, 
 1. Clone this repository to your local machine.
 ```bash
 git clone <repository-url>
+```
 
 2. Navigate to the project directory.
 ```bash
 cd chat-application
+```
 
 3. Install dependencies.
 ```bash
 npm install
+```
 
 4. Configure environment variables.
 - Create a .env file in the root directory.
-- Add the necessary environment variables : 
+- Add the necessary environment variables ((e.g., MongoDB connection string, session secret, Cloudinary credentials).)
     - Example : - PORT = 8000
                 - MONGODB_URL = "mongodb+srv://<Your Name>:<Your Password>@chat-app.xzstind.mongodb.net/Chat-App?retryWrites=true&w=majority&appName=Chat-App"
                 - SESSION_SECRET = "YourSessionSecret"
-                - cloud_name = ""
-                - api_key = ""
-                - api_secret = ""
+                - cloud_name = "Your Cloud Name"
+                - api_key = "Your Cloudinary API Key"
+                - api_secret = "Your Cloudinary API Secret"
+
+5. Start the server.
+```bash
+npm start
+```
+
+### Frontend Setup
+
+1. Ensure that the backend server is running.
+2. Open a web browser and navigate to the URL where the backend server is hosted (e.g., http://localhost:8000).
+3. You should see the login/register page. Follow the instructions to register or log in.
+4. After logging in, you'll be redirected to the dashboard where you can start chatting with other users.
+
