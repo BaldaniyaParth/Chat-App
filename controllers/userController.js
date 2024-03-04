@@ -5,6 +5,7 @@ const cloudinary = require("../helper/cloudinary");
 exports.loginLoad = async (req, res) => {
     try {
         res.render("register.ejs");
+
     }catch (err) {
         return res.status(500).json({
             status : 500,
@@ -15,6 +16,7 @@ exports.loginLoad = async (req, res) => {
 
 exports.register = async (req,res) => {
     try {
+
         const passwordHash = await bcrypt.hash(req.body.password, 10);
 
         const profile_pic = req.file;
@@ -29,6 +31,7 @@ exports.register = async (req,res) => {
         })
 
         await newUser.save();
+
         return res.redirect("/");
 
     }catch (err) {
@@ -47,16 +50,24 @@ exports.login = async (req, res) => {
         const userData = await User.findOne({email});
 
         if(userData){
+
             const passwordMatch = await bcrypt.compare(password, userData.password);
+
             if(passwordMatch){
+
                 req.session.user = userData;
                 res.cookie("user", JSON.stringify(userData));
                 res.redirect("/dashboard");
+
             }else{
-                res.redirect("/")
+
+                res.redirect("/");
+
             }
         }else{
-            res.redirect("/")
+
+            res.redirect("/");
+
         }
     }catch (err) {
         return res.status(500).json({
@@ -68,9 +79,11 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
+
         req.session.destroy();
-        res.clearCookie("user")
+        res.clearCookie("user");
         res.redirect("/");
+        
     }catch (err) {
         return res.status(500).json({
             status : 500,
@@ -81,7 +94,9 @@ exports.logout = async (req, res) => {
 
 exports.dashboardLoad = async (req, res) => {
     try {
+
         const users = await User.find({ _id : { $nin : [req.session.user._id]}});
+
         res.render("dashboard.ejs", {user : req.session.user, users : users});
 
     }catch (err) {

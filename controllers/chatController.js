@@ -11,7 +11,7 @@ exports.saveChat = async (req,res) => {
 
         const newChat = await chat.save();
 
-        res.status(200).send({
+        return res.status(200).send({
             success : true,
             message : "Chat Insert Successfully...",
             data : newChat
@@ -30,8 +30,9 @@ exports.deleteChat = async (req,res) => {
         
         await Chat.deleteOne( { _id : req.body.id });
 
-        res.status(200).send({
+        return res.status(200).send({
             success : true,
+            message : "Chat Delete Successfully..."
         })
 
     }catch (err) {
@@ -51,8 +52,9 @@ exports.updateChat = async (req,res) => {
             }
         });
 
-        res.status(200).send({
+        return res.status(200).send({
             success : true,
+            message : "Chat Update Successfully..."
         })
 
     }catch (err) {
@@ -62,3 +64,7 @@ exports.updateChat = async (req,res) => {
         })
     }
 }
+
+
+
+
