@@ -1,9 +1,14 @@
-const route = require("express").Router();
+const express = require("express");
+const router = express.Router();
 const chatController = require("../controllers/chatController");
 
+// Route to save a chat message
+router.post("/save-chat", chatController.saveChat);
 
-route.post("/save-chat", chatController.saveChat);
-route.post("/delete-chat", chatController.deleteChat);
-route.post("/update-chat", chatController.updateChat);
+// Route to delete a chat message
+router.post("/delete-chat", chatController.deleteChat);
 
-module.exports = route;
+// Route to update a chat message
+router.post("/update-chat", chatController.updateChat);
+
+module.exports = router;
